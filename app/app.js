@@ -29,15 +29,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
     
 }])
 .controller('feedCtrl', ['$scope', 'Facebook', function($scope, Facebook){
-    
-     $scope.$watch(function() {  
-      // This is for convenience, to notify if Facebook is loaded and ready to go.
-      return Facebook.isReady();
-    }, function(newVal) {
-      // You might want to use this to disable/show/hide buttons and else
-      $scope.facebookReady = true;
-      $scope.loadContent();
-    });
+
      $scope.getFeed = function() {
         Facebook.api($scope.pageId + '?fields=feed.limit(10)', {access_token:$scope.token}, function(response) {
             $scope.feed = response.feed;
@@ -64,16 +56,8 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
         })
     };
     
-    $scope.loadContent = function(){
-        Facebook.api($scope.pageId, {access_token:$scope.token}, function(response){
-            $scope.content = response;
-             console.log($scope.content);
-           // $scope.setCover(response.cover.cover_id);
-           // fbPageInstance.getImage(fbPageInstance.coverURL, response.cover.cover_id);
+    $scope.getFeed();
 
-        });
-        $scope.getFeed();
-    };
         
     // status_type from { mobile_status_update, created_note, added_photos, added_video, shared_story, created_group, created_event, wall_post, app_created_story, published_story, tagged_in_photo, approved_friend} //
     
@@ -86,11 +70,18 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
         else if(status_type == 'created_event'){
             $scope.setEvent(object_id, index);
         }
-      //  else if(status_type == 'shared_story'){
-     //       $scope.setStory(object_id, index);
-      //  }
+        else if(status_type == 'shared_story'){
+            $scope.setStory(object_id, index);
+        }
     };
     
+    $scope.setStory  = function(object_id, index){
+        if(object_id) {
+            Facebook.api(object_id, {access_token:$scope.token}, function(response){
+                $scope.feed.data[index].imageSource = response.images[0].source;
+            });
+        }
+    }
     $scope.setEvent = function(object_id, index) {
         if(object_id){
             Facebook.api(object_id + '?fields=cover,description', {access_token:$scope.token}, function(response){
@@ -104,6 +95,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
              $scope.feed.data[index].imageSource = null;
         }
     }
+    
     $scope.setImage = function(object_id, index){
        //console.log(post);
         if(object_id){
@@ -115,14 +107,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
         else{
              $scope.feed.data[index].imageSource = null;
         }
-    };
-    /*$scope.getImage = function(objectId) {
-        Facebook.api(id, {access_token:token}, function(response){
-            return response.images[0].source;
-        });
-    }*/
-    
-        
+    }; 
 }])
 .controller('contactCtrl', ['$scope', function($scope){
 }])
@@ -134,6 +119,22 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
     $scope.tabs.gallery = false;
     $scope.tabs.events = false;
     $scope.token = '1427747097519995|85GJFSbBD6WbpVoF8EZavlLWKUE';
+    
+    $scope.$watch(function() {  
+      // This is for convenience, to notify if Facebook is loaded and ready to go.
+      return Facebook.isReady();
+    }, function(newVal) {
+      // You might want to use this to disable/show/hide buttons and else
+        $scope.loadContent();
+    });
+    
+    $scope.loadContent = function(){
+        Facebook.api($scope.pageId, {access_token:$scope.token}, function(response){
+            $scope.content = response;
+            $scope.facebookReady = true;
+            console.log('ready');
+        });
+    };
 }])
 .controller('navigationCtrl', ['$scope', function($scope){
 }])
@@ -142,18 +143,12 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
         
     $scope.$watch(function() {  
       // This is for convenience, to notify if Facebook is loaded and ready to go.
-      return Facebook.isReady();
+      return $scope.facebookReady;
     }, function(newVal) {
       // You might want to use this to disable/show/hide buttons and else
-      $scope.facebookReady = true;
-      $scope.loadContent();
+      if($scope.facebookReady) {$scope.loadContent();}
     });
       
-    /*
-   $scope.convertLineBreaks = function(s) {
-       return s.replace('\n', '<br>');
-   }
-   */
     $scope.setCover = function(coverId) {
          Facebook.api(coverId, {access_token:$scope.token}, function(response) {
             $scope.coverURL = response.images[0].source;
@@ -162,29 +157,13 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
     };
     
     $scope.loadContent = function(){
-        Facebook.api($scope.pageId, {access_token:$scope.token}, function(response){
-           // $scope.content = response;
-           // console.log($scope.content);
-            $scope.setCover(response.cover.cover_id);
-            $scope.content = response;
-           // fbPageInstance.getImage(fbPageInstance.coverURL, response.cover.cover_id);
-
-        });
-        //$scope.getFeed();
+        $scope.setCover($scope.content.cover.cover_id);
     };
 }])
-.controller('aboutCtrl', ['$scope', 'Facebook', function($scope, Facebook){
-    $scope.$watch(function() {  
-      // This is for convenience, to notify if Facebook is loaded and ready to go.
-      return Facebook.isReady();
-    }, function(newVal) {
-      // You might want to use this to disable/show/hide buttons and else
-      $scope.facebookReady = true;
-      $scope.loadContent();
-    });
-    
+
+.controller('aboutCtrl', ['$scope', 'Facebook', function($scope, Facebook){ 
     $scope.loadContent = function(){
-        Facebook.api($scope.pageId + 'fields=phone,about,emails,current_location,location,locations,description,company_overview,hours,price_range',{access_token: $scope.token}, function(response){
+        Facebook.api($scope.pageId + '?fields=photos{picture,album},phone,about,emails,current_location,locations,description,company_overview,hours,price_range',{access_token: $scope.token}, function(response){
             $scope.phone = response.phone;
             $scope.about = response.about;
             $scope.emails = response.emails;
@@ -194,9 +173,16 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
             $scope.companyOverview = response.company_overview;
             $scope.hours = response.hours;
             $scope.priceRange = response.price_range;
-            
+            console.log(response);
+            $scope.getProfilePicture(response.photos.data[0].id);
         } );
     }
+    $scope.getProfilePicture = function(id) {
+        Facebook.api(id, {access_token: $scope.token}, function(response) {
+            $scope.profilePicture = response.images[0].source;
+        });
+    };
+    $scope.loadContent();
 }]);
 
 angular.module('app.filters', [])

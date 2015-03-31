@@ -8,9 +8,11 @@
                         </h2>
                         <h3 class="post-subtitle" ng-bind-html="post.message | linebreak | to_trusted">
                         </h3>
+                    <div class="row">
+                        <div class="col-sm-6">
                         <img ng-src ="{{post.imageSource}}" class="img-responsive"/>
-                    
-                    
+                        </div>
+                    </div>
                     <p class="post-meta">Posted by <a href="#">{{post.from.name}}</a> on {{post.created_time}}</p>
                     <hr>
 
