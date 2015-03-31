@@ -39,7 +39,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
     $scope.tabs = {};
     $scope.tabs.gallery = false;
     $scope.tabs.events = false;
-    var token = 'CAACEdEose0cBAEN4W5nb8xxUpNit7axE6ZCHwDkxZCcZCZBVTWbJafv5LBSmePjzX36s3IJ3ll4ZC4JmhLAuNBrR9yom3b4LugmTWEUbCV7P6bcmPSmnHurDZBlWzwZBIaZAISmWNIcQTnnk0gmw0UZA1EuCvtRQzjIuEgOxHwoLt2Bfjkp1Y1XMEF8AUBZB3ZACSeZCnt61ZCUDw0m4eUCGgLMLx';
+    $scope.token = '1427747097519995|85GJFSbBD6WbpVoF8EZavlLWKUE';
     
     $scope.$watch(function() {  
       // This is for convenience, to notify if Facebook is loaded and ready to go.
@@ -56,7 +56,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
    }
    */
     $scope.getFeed = function() {
-        Facebook.api($scope.pageId + '?fields=feed.limit(10)', {access_token:token}, function(response) {
+        Facebook.api($scope.pageId + '?fields=feed.limit(10)', {access_token:$scope.token}, function(response) {
             $scope.feed = response.feed;
             for(var i = 0; i< $scope.feed.data.length; i++) {
                 $scope.setContent($scope.feed.data[i].object_id, $scope.feed.data[i].status_type, i);
@@ -64,7 +64,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
         });
     };
     $scope.getNextPage= function(){
-        Facebook.api($scope.feed.paging.next.substring(31), {access_token:token}, function(response) {
+        Facebook.api($scope.feed.paging.next.substring(31), {access_token:$scope.token}, function(response) {
             console.log(response);
             $scope.feed = response;
             for(var i = 0; i< $scope.feed.data.length; i++) {
@@ -75,20 +75,20 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
     };
     
     $scope.getPreviousPage= function(){
-        Facebook.api($scope.feed.paging.previous.split(31), {access_token:token}, function(response) {
+        Facebook.api($scope.feed.paging.previous.split(31), {access_token:$scope.token}, function(response) {
             $scope.feed = response.feed;
             console.log(response);
         })
     };
     $scope.setCover = function(coverId) {
-         Facebook.api(coverId, {access_token:token}, function(response) {
+         Facebook.api(coverId, {access_token:$scope.token}, function(response) {
             $scope.coverURL = response.images[0].source;
              console.log(response.images[0].source);
         });
     };
     
     $scope.loadContent = function(){
-        Facebook.api($scope.pageId, {access_token:token}, function(response){
+        Facebook.api($scope.pageId, {access_token:$scope.token}, function(response){
             $scope.content = response;
             console.log($scope.content);
             $scope.setCover(response.cover.cover_id);
@@ -118,7 +118,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
     
     $scope.setEvent = function(object_id, index) {
         if(object_id){
-            Facebook.api(object_id + '?fields=cover,description', {access_token:token}, function(response){
+            Facebook.api(object_id + '?fields=cover,description', {access_token:$scope.token}, function(response){
                 $scope.feed.data[index].message = response.description;
                 $scope.feed.data[index].startTime = response.startTime;
                 $scope.feed.data[index].imageSource = response.cover.source;
@@ -132,7 +132,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
     $scope.setImage = function(object_id, index){
        //console.log(post);
         if(object_id){
-            Facebook.api(object_id, {access_token:token}, function(response){
+            Facebook.api(object_id, {access_token:$scope.token}, function(response){
                 $scope.feed.data[index].imageSource = response.images[0].source;
                 console.log($scope.feed.data[index].imageSource);
             });
