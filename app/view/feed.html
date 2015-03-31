@@ -1,0 +1,28 @@
+<div class="container" >
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" >
+                <div class="post-preview" ng-repeat="post in feed.data" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+                    
+                        <h2 class="post-title">
+                            {{post.story}}
+                        </h2>
+                        <h3 class="post-subtitle" ng-bind-html="post.message | linebreak | to_trusted">
+                        </h3>
+                        <img ng-src ="{{post.imageSource}}" class="img-responsive"/>
+                    
+                    
+                    <p class="post-meta">Posted by <a href="#">{{post.from.name}}</a> on {{post.created_time}}</p>
+                    <hr>
+
+                </div>
+                
+                
+                <!-- Pager -->
+                <ul class="pager">
+                    <li class="next">
+                        <button class="button" ng-click="getNextPage()">Older Posts &rarr;</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
