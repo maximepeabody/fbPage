@@ -28,20 +28,9 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
     })
     
 }])
-.controller('feedCtrl', ['$scope', function($scope){
-}])
-.controller('contactCtrl', ['$scope', function($scope){
-}])
-
-.controller('appCtrl', ['$scope', 'Facebook',function($scope, Facebook){
-    $scope.pageId = '1425194534381693';
-    $scope.facebookReady = false;
-    $scope.tabs = {};
-    $scope.tabs.gallery = false;
-    $scope.tabs.events = false;
-    $scope.token = '1427747097519995|85GJFSbBD6WbpVoF8EZavlLWKUE';
+.controller('feedCtrl', ['$scope', 'Facebook', function($scope, Facebook){
     
-    $scope.$watch(function() {  
+     $scope.$watch(function() {  
       // This is for convenience, to notify if Facebook is loaded and ready to go.
       return Facebook.isReady();
     }, function(newVal) {
@@ -49,13 +38,7 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
       $scope.facebookReady = true;
       $scope.loadContent();
     });
-      
-    /*
-   $scope.convertLineBreaks = function(s) {
-       return s.replace('\n', '<br>');
-   }
-   */
-    $scope.getFeed = function() {
+     $scope.getFeed = function() {
         Facebook.api($scope.pageId + '?fields=feed.limit(10)', {access_token:$scope.token}, function(response) {
             $scope.feed = response.feed;
             for(var i = 0; i< $scope.feed.data.length; i++) {
@@ -80,26 +63,18 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
             console.log(response);
         })
     };
-    $scope.setCover = function(coverId) {
-         Facebook.api(coverId, {access_token:$scope.token}, function(response) {
-            $scope.coverURL = response.images[0].source;
-             console.log(response.images[0].source);
-        });
-    };
     
     $scope.loadContent = function(){
         Facebook.api($scope.pageId, {access_token:$scope.token}, function(response){
             $scope.content = response;
-            console.log($scope.content);
-            $scope.setCover(response.cover.cover_id);
+             console.log($scope.content);
+           // $scope.setCover(response.cover.cover_id);
            // fbPageInstance.getImage(fbPageInstance.coverURL, response.cover.cover_id);
 
         });
         $scope.getFeed();
     };
-    
-  //  $scope.loadContent();
-    
+        
     // status_type from { mobile_status_update, created_note, added_photos, added_video, shared_story, created_group, created_event, wall_post, app_created_story, published_story, tagged_in_photo, approved_friend} //
     
     $scope.setContent = function(object_id, status_type, index) {
@@ -147,10 +122,56 @@ angular.module('app',['facebook','app.filters', 'ngRoute'])
         });
     }*/
     
-    }])
+        
+}])
+.controller('contactCtrl', ['$scope', function($scope){
+}])
+
+.controller('appCtrl', ['$scope', 'Facebook',function($scope, Facebook){
+    $scope.pageId = '1425194534381693';
+    $scope.facebookReady = false;
+    $scope.tabs = {};
+    $scope.tabs.gallery = false;
+    $scope.tabs.events = false;
+    $scope.token = '1427747097519995|85GJFSbBD6WbpVoF8EZavlLWKUE';
+}])
 .controller('navigationCtrl', ['$scope', function($scope){
 }])
-.controller('headerCtrl',['$scope', function($scope){
+.controller('headerCtrl',['$scope','Facebook', function($scope, Facebook){
+    
+        
+    $scope.$watch(function() {  
+      // This is for convenience, to notify if Facebook is loaded and ready to go.
+      return Facebook.isReady();
+    }, function(newVal) {
+      // You might want to use this to disable/show/hide buttons and else
+      $scope.facebookReady = true;
+      $scope.loadContent();
+    });
+      
+    /*
+   $scope.convertLineBreaks = function(s) {
+       return s.replace('\n', '<br>');
+   }
+   */
+    $scope.setCover = function(coverId) {
+         Facebook.api(coverId, {access_token:$scope.token}, function(response) {
+            $scope.coverURL = response.images[0].source;
+             console.log(response.images[0].source);
+        });
+    };
+    
+    $scope.loadContent = function(){
+        Facebook.api($scope.pageId, {access_token:$scope.token}, function(response){
+           // $scope.content = response;
+           // console.log($scope.content);
+            $scope.setCover(response.cover.cover_id);
+            $scope.content = response;
+           // fbPageInstance.getImage(fbPageInstance.coverURL, response.cover.cover_id);
+
+        });
+        //$scope.getFeed();
+    };
 }])
 .controller('aboutCtrl', ['$scope', 'Facebook', function($scope, Facebook){
     $scope.$watch(function() {  
