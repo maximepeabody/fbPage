@@ -213,24 +213,21 @@ hr.small {
 .post-preview  {
   color: #404040;
 }
-.post-preview:hover,
-.post-preview:focus {
-  text-decoration: none;
-  color: #0085a1;
-}
+
 .post-preview > .post-title {
-  font-size: 30px;
+  font-size: 25px;
   margin-top: 30px;
   margin-bottom: 10px;
 }
 .post-preview > .post-subtitle {
   margin: 0;
+    font-size: 15px;
   font-weight: 300;
   margin-bottom: 10px;
 }
 .post-preview > .post-meta {
   color: #808080;
-  font-size: 18px;
+  font-size: 12px;
   font-style: italic;
   margin-top: 0;
 }
