@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{{content.name}}</title>
+    <title>{{page.name}}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                     <span class="icon-bar"></span>
 
                 </button>
-                <a class="navbar-brand" href="index.html">{{content.name}}</a>
+                <a class="navbar-brand" href="index.html">{{page.name}}</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -78,16 +78,16 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('{{coverURL}}')" ng-controller="headerCtrl">
+    <header class="intro-header" style="background-image: url('{{page.coverURL}}')" ng-controller="headerCtrl">
         <header class="intro-header" style="background-color: rgba(0,0,0,0.3)">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
                         
-                        <h1>{{content.name}}</h1>
+                        <h1>{{page.name}}</h1>
                         <hr class="small">
-                        <span class="subheading">{{content.about}}</span>
+                        <span class="subheading">{{page.about}}</span>
                     </div>
                 </div>
             </div>
