@@ -3,6 +3,7 @@
  * Copyright 2014 Start Bootstrap
  * Licensed under Apache 2.0 (https://github.com/IronSummitMedia/startbootstrap/blob/gh-pages/LICENSE)
  */
+a.anchor{display: block; position: relative; top: -110px; visibility: hidden;}
 
 body {
   font-family: 'Lora', 'Times New Roman', serif;
@@ -47,7 +48,7 @@ hr.small {
   border-color: white;
 }
 .navbar-custom {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -87,6 +88,7 @@ hr.small {
 }
 @media only screen and (min-width: 1170px) {
   .navbar-custom {
+    background:rgba(0,0,0,0.5);
     -webkit-transition: background-color 0.3s;
     -moz-transition: background-color 0.3s;
     transition: background-color 0.3s;

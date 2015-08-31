@@ -1,1 +1,17 @@
-{{page.name}}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3  ">
+            <img ng-src="{{page.profilePicture}}" class="img-responsive" style="border:1px" />
+        </div>
+        <div class="col-lg-8 col-lg-offset-1 col-md-9 col-md-offset-1">
+            <div class="post-preview" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+
+                <h2 class="post-description" ng-bind-html="page.about | linebreak | to_trusted">
+                       
+                    </h2>
+
+
+            </div>
+        </div>
+    </div>
+</div>

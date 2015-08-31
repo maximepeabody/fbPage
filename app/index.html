@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app" ng-controller = "appCtrl">
+<html lang="en" ng-app="app" ng-controller="appCtrl">
 
 <head>
 
@@ -28,10 +28,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
-<body >
+<body>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top" ng-controller="navigationCtrl">
@@ -48,26 +47,27 @@
                     <span class="icon-bar"></span>
 
                 </button>
-                <a class="navbar-brand" href="index.html">{{page.name}}</a>
+                <a class="navbar-brand" href="#/">{{page.name}}</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="navbar-collapse" ng-class="{collapse: !isCollapsed}" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#/" ng-click="isCollapsed = !isCollapsed">Home</a>
+                        <a href="#/?scrollTo=feed" ng-click="isCollapsed = !isCollapsed">News</a>
                     </li>
                     <li>
-                        <a href="#/about" ng-click="isCollapsed = !isCollapsed">About</a>
+                        <a href="#/about?scrollTo=feed" ng-click="isCollapsed = !isCollapsed">About</a>
                     </li>
                     <li>
-                        <a href="#/gallery" ng-show="tabs.gallery">Gallery</a>
+                        <a href="#/gallery?scrollTo=feed" ng-show="tabs.gallery">Gallery</a>
                     </li>
                     <li>
                         <a href="#/events" ng-show="tabs.events">Events</a>
                     </li>
                     <li>
-                        <a href="#/contact" >Contact</a>
+                        <a href="#/contact?scrollTo=feed" ng-click="isCollapsed=! isCollapsed ">Contact
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -80,27 +80,28 @@
     <!-- Set your background image for this header on the line below. -->
     <header class="intro-header" style="background-image: url('{{page.coverURL}}')" ng-controller="headerCtrl">
         <header class="intro-header" style="background-color: rgba(0,0,0,0.3)">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        
-                        <h1>{{page.name}}</h1>
-                        <hr class="small">
-                        <span class="subheading">{{page.about}}</span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="site-heading">
+
+                            <h1>{{page.name}}</h1>
+                            <hr class="small">
+                            <span class="subheading">{{page.about}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </header>
     </header>
 
     <!-- Main Content -->
+    <a class="anchor" id="feed"></a>
     <div ng-view></div>
     <hr>
 
     <!-- Footer -->
-    <footer>
+    <footer id="bottom">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -121,27 +122,27 @@
     </footer>
 
     <!-- jQuery -->
-   <!-- <script src="js/jquery.js"></script> -->
+    <!-- <script src="js/jquery.js"></script> -->
 
     <!-- Bootstrap Core JavaScript -->
-   <!-- <script src="js/bootstrap.min.js"></script> -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
 
     <!-- Custom Theme JavaScript -->
-   <!-- <script src="js/clean-blog.min.js"></script> -->
-    
+    <!-- <script src="js/clean-blog.min.js"></script> -->
+
     <!-- angular js file -->
     <script src="bower_components/angular/angular.min.js"></script>
-    
+
     <!-- angular facebook file -->
     <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
-    
+
     <script src="bower_components/angular-route/angular-route.min.js"></script>
-    
 
 
-   
-    
-    
+
+
+
+
     <!-- custom angular app -->
     <script src="app.js"></script>
 
