@@ -68,25 +68,52 @@ angular.module('app', ['facebook', 'app.filters', 'ngRoute'])
                 page.priceRange = response.price_range;
                 page.getProfilePicture(response.photos.data[0].id);
                 page.setCover(response.cover.cover_id);
-                page.
-                    //page.feed = response.feed;
+                page.getAlbumCovers();
+
+                //page.feed = response.feed;
                 console.log(response);
             });
         };
+
         page.getAlbumCovers = function () {
             Facebook.api(page.pageId + '?fields=albums{cover_photo{images},description,name}', {
                 access_token: page.token
             }, function (response) {
                 page.AlbumCovers = response;
+                console.log(response);
             });
         };
         page.getAlbumImages = function (albumID) {
-            Facebook.api(albumID + '?fields=photos{images, name}', {
+            Facebook.api(albumID + '?fields=photos{images, name, description}', {
                 access_token: page.token
             }, function (response) {
                 page.AlbumImages = response;
             });
         };
+
+        page.getAllAlbums = function () {
+
+            Facebook.api(page.pageId + '?fields=albums{photos{images,description,name}}', {
+                access_token: page.token
+            }, function (response) {
+                page.albums = response.albums;
+                page.setAlbum(0);
+                console.log("setAlbum(0)");
+
+                console.log(response);
+            });
+        };
+
+        page.setAlbum = function (index) {
+            page.currentAlbum = page.albums.data[index];
+            page.setCurrentPhotos();
+        }
+
+        page.setCurrentPhotos = function () {
+            page.currentPhotos = page.currentAlbum.photos;
+            console.log(page.currentPhotos);
+        }
+
 
 
         page.getFeed = function () {

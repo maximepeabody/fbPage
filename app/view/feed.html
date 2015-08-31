@@ -1,32 +1,32 @@
-<div class="container">
-    <div class="row" id="feed">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-preview" ng-repeat="post in page.feed.data" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+<div class="container" style="margin-top:50px; ">
+    <div class=" row " id="feed ">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+            <div class="post-preview text-center" style="background:white; border:rgba(0,0,0,.14); border-radius:2px; 
+                                              border-width:2px; border-style:solid; margin-bottom:50px; padding:10px" ng-repeat="post in page.feed.data " ng-animate="{enter: 'animate-enter', leave: 'animate-leave'} ">
 
-                <h2 class="post-title">
-                            {{post.status_type.replace("-", " ")}}
+                <h2 class="post-title ">
+                            {{post.created_time.substring(10,0)}}
                         </h2>
 
-                <h3 class="post-subtitle" dd-text-collapse dd-text-collapse-max-length="250" dd-text-collapse-text="{{post.message | linebreak | to_trusted}}">
+                <h3 class="post-subtitle " dd-text-collapse dd-text-collapse-max-length="250 " dd-text-collapse-text="{{post.message | linebreak | to_trusted}} ">
                         </h3>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <img ng-src="{{post.imageSource}}" class="img-responsive" />
+                <div class="row ">
+                    <div class="col-sm-6 ">
+                        <img ng-src="{{post.imageSource}} " class="img-responsive fa-align-center " />
                     </div>
                 </div>
-                <p class="post-meta">Posted by <a href="#">{{post.from.name}}</a> on {{post.created_time}}</p>
-                <hr>
+                <p class="post-meta ">Posted by <a href="# ">{{post.from.name}}</a> on {{post.created_time}}</p>
 
             </div>
 
 
             <!-- Pager -->
-            <ul class="pager">
-                <li class="previous">
-                    <button class="button" ng-click="page.getPreviousPage()">&larr; Previous </button>
+            <ul class="pager ">
+                <li class="previous ">
+                    <button class="button " ng-click="page.getPreviousPage() ">&larr; Previous </button>
                 </li>
-                <li class="next">
-                    <button class="button" ng-click="page.getNextPage()">Next &rarr;</button>
+                <li class="next ">
+                    <button class="button " ng-click="page.getNextPage(); ">Next &rarr;</button>
                 </li>
 
             </ul>
