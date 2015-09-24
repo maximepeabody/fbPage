@@ -21,7 +21,7 @@ feed.
 -Events
 -Gallery
 
-<h2> The Page Factory/singleton</h2>
+<h2> The Page Factory/Singleton</h2>
 This factory returns a page object that is used throughout the app. It
 serves as the model.
 Attributes:
@@ -51,4 +51,4 @@ mainContent:
 
 <h3>The Feed</h3>
 This is taken directly from the facebook page feed. There are different
-types of posts that can be made to teh feed. Some include pictures, events, or simple messages. 
+types of posts that can be made to the feed. Some examples are pictures, events, or simple messages. 
